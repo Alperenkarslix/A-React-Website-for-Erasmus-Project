@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const SearchBar = () => {
-  const [query, setQuery] = useState('');
+  var [query, setQuery] = useState('');
 
   const handleInputChange = (event) => {
     setQuery(event.target.value);
@@ -9,7 +9,7 @@ const SearchBar = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Handle the search logic here
+    
     console.log('Search query:', query);
   };
 
