@@ -18,11 +18,11 @@ function Navbar(){
             
     return(
         <nav>
-        <div class="logo">
+        <div className="logo">
          <span>Gas Graphs</span>
         </div>
-        <ul class="nav-links">
-            <li><a href="#">Home</a></li>
+        <ul className="nav-links">
+            <li><a href="/" >Home</a></li>
             <li><a href="https://github.com/lobis">Contact</a></li>
             <form onSubmit={handleSubmit}>
                 <input
