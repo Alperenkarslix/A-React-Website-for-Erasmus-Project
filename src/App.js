@@ -1,10 +1,15 @@
 import './App.css';
-
+// import Footer from './components/footer';
+import Navbar from './components/navbar';
+import Graphs from './components/graphs';
 function App() {
   return (
     <div className="App">
-      <h1>Hello World!</h1>
+      {/* <Navbar /> */}
+      {/* <Footer /> */}
+      <Graphs />
     </div>
+
   );
 }
 
