@@ -1,39 +1,52 @@
-import "../style/navbar.css"
-import React, { useState } from 'react';
-function Navbar(){
-        var [query, setQuery] = useState('');
+import React , {useState} from 'react'
+import { Link } from 'react-router-dom'
+import './Navbar.css'
 
-        const handleInputChange = (event) => {
-            setQuery(event.target.value);
-        };
+function Navbar() {
+    const [click, setClick] = useState(false);
+    const handeClick = () => setClick(!click);
+    const closeMobileMenu = () => setClick(false);
+  return (
+    <>
+      <nav className="navbar">
+        <div className="navbar-container">
+            <Link to="/" className="navbar-logo">
+                Gas Graphs <i class="fa-solid fa-chart-line fa-lg"></i>
+            </Link>
+            <div className="menu-icon" onClick={handeClick}>
+                <i className={click ? 'fas fa-times' : 'fas fa-bars'}></i>
+            </div>
+            <ul className={click ? 'nav-menu active' : 'nav-menu'}>
+                <li className="nav-item">
+                    <Link to="/" className="nav-links" onClick={closeMobileMenu}>
+                        Home
+                    </Link>
+                </li>
+                <li className="nav-item">
+                    <Link to="/about" className="nav-links" onClick={closeMobileMenu}>
+                        About
+                    </Link>
+                </li>
+                <li className="nav-item">
+                    <Link to="/contact" className="nav-links" onClick={closeMobileMenu}>
+                        Contact
+                    </Link>
+                </li>
+                <li className="nav-item">
+                    <div className="box">
+                        <form name="search">
+                            <input type="text" class="input" name="txt"></input>
+                        </form>
+                        <i class="fas fa-search" ></i>
+                    </div>
+                </li>
+            </ul>
 
-        const handleSubmit = (event) => {
-            event.preventDefault();
-            if (query === '') {
-                alert('Please enter a search term.');
-                return;
-            }
-            console.log('Search query:', query);
-        };
-            
-    return(
-        <nav>
-        <div className="logo">
-         <span>Gas Graphs</span>
         </div>
-        <ul className="nav-links">
-            <li><a href="/" >Home</a></li>
-            <li><a href="https://github.com/lobis">Contact</a></li>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    placeholder="Search..."
-                    value={query}
-                    onChange={handleInputChange}
-                />
-            </form>
-        </ul>
-    </nav>
-    )
+        </nav>
+        
+    </>
+  )
 }
-export default Navbar;
+
+export default Navbar
