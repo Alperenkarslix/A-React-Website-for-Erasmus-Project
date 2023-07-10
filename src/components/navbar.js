@@ -1,11 +1,14 @@
 import React , {useState} from 'react'
 import { Link } from 'react-router-dom'
 import './Navbar.css'
+import SearchBox from './SearchBox'
+import './SearchBox.css'
 
 function Navbar() {
     const [click, setClick] = useState(false);
     const handeClick = () => setClick(!click);
     const closeMobileMenu = () => setClick(false);
+    
   return (
     <>
       <nav className="navbar">
@@ -33,12 +36,7 @@ function Navbar() {
                     </Link>
                 </li>
                 <li className="nav-item">
-                    <div className="box">
-                        <form name="search">
-                            <input type="text" class="input" name="txt"></input>
-                        </form>
-                        <i class="fas fa-search" ></i>
-                    </div>
+                    <SearchBox />
                 </li>
             </ul>
 
