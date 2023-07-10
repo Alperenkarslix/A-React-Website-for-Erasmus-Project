@@ -1,15 +1,22 @@
 import './App.css';
 import Navbar from './components/navbar';
+import Footer from './components/Footer';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 function App() {
   return (
+
     <>
       <Router>
-        <Navbar /> 
+        <Navbar />
         <Routes>
-          <Route path='/' exact />
+          <Route path="/" />
+          <Route path="/about"/>
+          <Route path="/contact" />
         </Routes>
-      </Router> 
+        <Footer />
+      </Router>
+      
     </>
 
   );

@@ -1,8 +1,8 @@
 import React , {useState} from 'react'
 import { Link } from 'react-router-dom'
-import './Navbar.css'
+import '../style/Navbar.css'
 import SearchBox from './SearchBox'
-import './SearchBox.css'
+import '../style/SearchBox.css'
 
 function Navbar() {
     const [click, setClick] = useState(false);
