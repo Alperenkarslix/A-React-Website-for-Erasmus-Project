@@ -29,7 +29,7 @@ function Footer(){
 			</div>
 			<div class="footer-right">
 				<div class="footer-icons">
-					<a href="/"><i class="fa fa-github"></i></a>
+					<a href="https://github.com/lobis"><i class="fa fa-github"></i></a>
 				</div>
 			</div>
 		</footer>
