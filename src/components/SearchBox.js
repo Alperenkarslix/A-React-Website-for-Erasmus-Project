@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../style/Navbar.css'
+import '../style/SearchBox.css';
 
 function SearchBox() {
   const [searchText, setSearchText] = useState('');
@@ -10,7 +10,9 @@ function SearchBox() {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    // Perform the search you want to do here or do something else 
+    fetch(`https://lobis.github.io/gas-files/files/mixtures/Ar-C4H10/${searchText}.gas.json`)
+      .then((response) => response.json())
+      .then((data) => console.log(data));
    console.log('Arama metni:', searchText);
     // You can call another function here or do other operations if you want
   };

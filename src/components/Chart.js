@@ -7,15 +7,30 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
+import SearchBox from './SearchBox';
 import '../style/Chart.css';
 
 const Chart = () => {
   const [data, setData] = useState([]); 
   const [selectedOption, setSelectedOption] = useState({ value: 'Drift Velocity', label: 'Drift Velocity' });
-  const [Yname, setYname] = React.useState({ value: '', label: '' });
-  const [checked, setChecked] = React.useState(false);
-  const [Xname, setXname] = React.useState({ value: '', label: '' });
+  const [Yname, setYname] = useState({ value: '', label: '' });
+  const [checked, setChecked] = useState(false);
+  const [Xname, setXname] = useState({ value: '', label: '' });
   const [dataX , setDataX] = useState([]);
+  const [gasList, setGasList] = useState([]);
+
+
+  useEffect(() => {
+    axios.get("https://lobis.github.io/gas-files/files/list.json").then((response) => {
+    
+    const gasList = response.data.map((item) => ({
+        'Gas Name': item.name,
+        'Gas URL': item.url,
+    }));
+    setGasList(gasList);
+    console.log('List:', gasList);
+    });
+}, []);
 
 useEffect(() => {
   if (selectedOption?.value === 'Drift Velocity') {
@@ -41,7 +56,7 @@ useEffect(() => {
 useEffect(() => {
     const fetchJSONData = async () => {
       try {
-        const response = await axios.get('https://lobis.github.io/gas-files/files/mixtures/Ar-CH4/Ar_80.0-CH4_20.0.gas.json');
+        const response = await axios.get('https://lobis.github.io/gas-files/files/mixtures/Xe-CH4/Xe_80.0-CH4_20.0.gas.json');
         const rawData = Array.isArray(response.data) ? response.data : [response.data];
         const formattedData = rawData.map((item) => ({
           'Electric Field': item.electric_field,
@@ -50,14 +65,12 @@ useEffect(() => {
           'Transversal Diffusion': item.electron_transversal_diffusion,
           'Pressure': item.pressure,
         }));
-        const combinedData = formattedData[0]['Drift Velocity'].map((driftVelocity, index) => ({
-          'Drift Velocity': formattedData[0]['Drift Velocity'][index],
+        const combinedData = formattedData[0]['Drift Velocity'].map((electron_drift_velocity, index) => ({
+          'Drift Velocity': Math.round(formattedData[0]['Drift Velocity'][index] * 100) / 100,
           'Electric Field': Math.round(formattedData[0]['Electric Field'][index] * 100) / 1000,
-          'Diffusion Coefficient': formattedData[0]['Diffusion Coefficient'][index],
+          'Diffusion Coefficient': formattedData[0]['Diffusion Coefficient'][index], 
           'Transversal Diffusion': formattedData[0]['Transversal Diffusion'][index],
         }));
-
-
         setData(combinedData);
         console.log('Veri çekme başarılı:', combinedData);
       } catch (error) {
@@ -68,11 +81,12 @@ useEffect(() => {
   }, []);
   return (
     <div>
-    <body>
       <div className="options">
         <FormControl>
       <FormLabel id="demo-radio-buttons-group-label">Graph Options</FormLabel>
-      <RadioGroup
+      <ul>
+        <li>
+          <RadioGroup
         aria-labelledby="demo-radio-buttons-group-label"
         defaultValue={'Drift Velocity'}
         name="radio-buttons-group"
@@ -81,8 +95,12 @@ useEffect(() => {
         <FormControlLabel value={'Diffusion Coefficient'} control={<Radio />} label="Diffusion Coefficient" />
         <FormControlLabel value={'Transversal Diffusion'} control={<Radio />} label="Transversal Diffusion" />
       </RadioGroup>
+      </li>
+        <li><FormControlLabel control={<Switch checked={checked} onChange={(e) => setChecked(e.target.checked)} />} label="Reduced Electric Field" /></li>
+        <li> <SearchBox /></li>
+      </ul>
     </FormControl>
-    <FormControlLabel control={<Switch checked={checked} onChange={(e) => setChecked(e.target.checked)} />} label="Reduced Electric Field" />
+   
       </div>
       <div>
       <ResponsiveContainer width="100%" height={400} >
@@ -95,7 +113,6 @@ useEffect(() => {
       </LineChart>
       </ResponsiveContainer>
       </div>
-    </body>
     </div>
   );
 };

@@ -4,32 +4,32 @@ import "../style/Footer.css";
 function Footer(){
     return (
 
-        <footer class="footer-distributed">
-			<div class="footer-left">
+        <footer className="footer-distributed">
+			<div className="footer-left">
 				<h3>Gas<span>Graphs</span></h3>
-				<p class="footer-links">
-					<a href="/"class="link-1">Home</a>
-					<a href="/"> About</a>
-					<a href="/"> Contact</a>
+				<p className="footer-links">
+					<a href="/">Home</a>
+					<a href="/about"> About</a>
+					<a href="/Contact"> Contact</a>
 				</p>
 			</div>
-			<div class="footer-center">
+			<div className="footer-center">
 				<div>
-					<i class="fa fa-map-marker"></i>
+					<i className="fa fa-map-marker"></i>
 					<p><span>Facultad de Ciencias </span>Pedro Cerbuna, 12. 50009 Zaragoza</p>
 				</div>
 				<div>
-					<i class="fa fa-phone"></i>
+					<i className="fa fa-phone"></i>
 					<p>Secretaría 976761262</p>
 				</div>
 				<div>
-					<i class="fa fa-envelope"></i>
+					<i className="fa fa-envelope"></i>
 					<p>fteorica.unizar.es</p>
 				</div>
 			</div>
-			<div class="footer-right">
-				<div class="footer-icons">
-					<a href="https://github.com/lobis"><i class="fa fa-github"></i></a>
+			<div className="footer-right">
+				<div className="footer-icons">
+					<a href="https://github.com/lobis"><i className="fa fa-github"></i></a>
 				</div>
 			</div>
 		</footer>

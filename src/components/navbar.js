@@ -1,8 +1,6 @@
 import React , {useState} from 'react'
 import { Link } from 'react-router-dom'
 import '../style/Navbar.css'
-import SearchBox from './SearchBox'
-import '../style/SearchBox.css'
 
 function Navbar() {
     const [click, setClick] = useState(false);
@@ -34,9 +32,6 @@ function Navbar() {
                     <Link to="/contact" className="nav-links" onClick={closeMobileMenu}>
                         Contact
                     </Link>
-                </li>
-                <li className="nav-item">
-                    <SearchBox />
                 </li>
             </ul>
 
