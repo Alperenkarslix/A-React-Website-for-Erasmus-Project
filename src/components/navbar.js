@@ -12,7 +12,7 @@ function Navbar() {
       <nav className="navbar">
         <div className="navbar-container">
             <Link to="/" className="navbar-logo">
-                Gas Graphs <i class="fa-solid fa-chart-line fa-lg"></i>
+                Gas Graphs <i className="fa-solid fa-chart-line fa-lg"></i>
             </Link>
             <div className="menu-icon" onClick={handeClick}>
                 <i className={click ? 'fas fa-times' : 'fas fa-bars'}></i>

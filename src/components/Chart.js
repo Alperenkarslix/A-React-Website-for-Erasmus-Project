@@ -17,20 +17,6 @@ const Chart = () => {
   const [checked, setChecked] = useState(false);
   const [Xname, setXname] = useState({ value: '', label: '' });
   const [dataX , setDataX] = useState([]);
-  const [gasList, setGasList] = useState([]);
-
-
-  useEffect(() => {
-    axios.get("https://lobis.github.io/gas-files/files/list.json").then((response) => {
-    
-    const gasList = response.data.map((item) => ({
-        'Gas Name': item.name,
-        'Gas URL': item.url,
-    }));
-    setGasList(gasList);
-    console.log('List:', gasList);
-    });
-}, []);
 
 useEffect(() => {
   if (selectedOption?.value === 'Drift Velocity') {
