@@ -1,0 +1,15 @@
+.chart-options {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+
+}
+.chart-options > div {
+    display: flex;
+    margin: 0 20px;
+    padding: 0 20px;
+    border-right: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+}
+

@@ -10,17 +10,9 @@ const Home = () => {
         <div>
             <Navbar />
         </div>
-        <div className="home-page">
-            <div className="home-content">
-            <div className="home-text">
-                <h1>Gas Graps</h1>
-            </div>
-            </div>
-        </div>
+        <br></br>
         <div>
-            <ul>
-                <li> <Chart /></li>
-            </ul>
+            <Chart />
         </div>
         <div>
             <Footer />
