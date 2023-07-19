@@ -12,4 +12,10 @@
     border-right: 1px solid #ccc;
     border-left: 1px solid #ccc;
 }
-
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 50px;
+    margin-right: 20px;
+}

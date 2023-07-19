@@ -4,7 +4,7 @@
   font-family: Open Sans;
 }
 nav {
-    background: rgb(17, 17, 16);
+    background: #222831 ;
     height: 80px;
     display: absolute;
     justify-content: center;
@@ -13,6 +13,7 @@ nav {
     position: sticky;
     top: 0;
     z-index: 999;
+    margin: -8px -8px -8px -8px  ;
   }
   
   .navbar-container {
@@ -26,7 +27,6 @@ nav {
   .navbar-logo {
     color: #fff;
     justify-self: start;
-    margin-left: 20px;
     cursor: pointer;
     text-decoration: none;
     font-size: 2rem;
@@ -103,7 +103,7 @@ nav {
     }
     
     .nav-menu.active {
-      background: #242222;
+      background: #222831;
       left: 0;
       opacity: 1;
       transition: all 0.5s ease;
@@ -164,7 +164,7 @@ nav {
   
     .nav-links-mobile:hover {
       background: #fff;
-      color: #242424;
+      color: #222831;
       transition: 250ms;
     }
 

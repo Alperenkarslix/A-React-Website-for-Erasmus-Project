@@ -20,39 +20,59 @@ const Chart = () => {
   const [selectedOption, setSelectedOption] = useState({ value: 'Drift Velocity', label: 'Drift Velocity' });
   const [Yname, setYname] = useState({ value: '', label: '' });
   const [checked, setChecked] = useState(false);
+  const [logarithmic, setLogarithmic] = useState(false);
   const [Xname, setXname] = useState({ value: '', label: '' });
   const [dataX , setDataX] = useState([]);
   const [firstGas, setFirstGas] = useState('Ar');
   const [secondGas, setSecondGas] = useState('C4H10');
-  const [valueFirstGas, setValueFirstGas] = useState(80);
-  const [valueSecondGas, setValueSecondGas] = useState(20);
-  const url = `https://lobis.github.io/gas-files/files/mixtures/${firstGas}-${secondGas}/${firstGas}_80.0-${secondGas}_20.0.gas.json`;
- 
- 
-  const handleChange = (event) => { 
-      setFirstGas(event.target.value);
-  };
-  const handleChange2 = (event) => {
-      setSecondGas(event.target.value);
-  }; 
-  const handleChange3 = (event) => {  
-      setValueFirstGas(event.target.value);
-  };
-  const handleChange4 = (event) => {
-      setValueSecondGas(event.target.value);
-  };
+  const [valueFirstGas, setValueFirstGas] = useState("80.0");
+  const [changingValueFirstGas, setChangingValueFirstGas] = useState('80.0');
+  const [changingValueSecondGas, setChangingValueSecondGas] = useState('20.0');
+  const [valueSecondGas, setValueSecondGas] = useState("20.0");
+  var url = `https://lobis.github.io/gas-files/files/mixtures/${firstGas}-${secondGas}/${firstGas}_${valueFirstGas}-${secondGas}_${valueSecondGas}.gas.json`;
 
+      const handleChange = (event) => { 
+          setFirstGas(event.target.value);
+      };
+      const handleChange2 = (event) => {
+          setSecondGas(event.target.value);
 
+      };
+      const handleSliderChange = (event, newValue) => {
+        const formattedValue = newValue.toFixed(1);
+        setChangingValueFirstGas(formattedValue);
+        setChangingValueSecondGas(100.0 - newValue.toFixed(1));
+      };
+      
+      const handleSliderChange2 = (event, newValue) => {
+        const formattedValue = newValue.toFixed(1);
+        setChangingValueSecondGas(formattedValue);
+        setChangingValueFirstGas(100.0 - newValue.toFixed(1));
+      };
+      
+      const handleMouseUp = () => {
+        setValueFirstGas(changingValueFirstGas);
+        setValueSecondGas(100.0 - changingValueFirstGas);
+        console.log('Değer değişti:', valueFirstGas);
 
+      };
+      
+      const handleMouseUp2 = () => {
+        setValueSecondGas(changingValueSecondGas);
+        setValueFirstGas(100.0 - changingValueSecondGas);
+        console.log('Değer değişti:', valueSecondGas);
+      };
+      var gasValue1 = valueFirstGas;
+      var gasValue2 = valueSecondGas;
 useEffect(() => {
   if (selectedOption?.value === 'Drift Velocity') {
-    setYname({ value: 'Drift Velocity [cm^2/s]', label: 'Drift Velocity [cm^2/s]' })
+    setYname({ value: 'Drift Velocity [cm²/s]', label: 'Drift Velocity [cm²/s]' })
   }
   if (selectedOption?.value === 'Diffusion Coefficient') {
-    setYname({ value: 'Diffusion Coefficient [cm^2/s]', label: 'Diffusion Coefficient [cm^2/s]' })
+    setYname({ value: 'Diffusion Coefficient [cm²/s]', label: 'Diffusion Coefficient [cm²/s]' })
   }
   if (selectedOption?.value === 'Transversal Diffusion') {
-    setYname({  value: 'Diffusion Coefficient [cm^2/s]', label: 'Diffusion Coefficient [cm^2/s]' })
+    setYname({  value: 'Diffusion Coefficient [cm²/s]', label: 'Diffusion Coefficient [cm²/s]' })
   }
 }, [selectedOption])
 
@@ -66,6 +86,15 @@ useEffect(() => {
     setXname({ value: 'Electric Field [V/cm]', label: 'Electric Field [V/cm]' });
   }
 }, [checked])
+
+useEffect(() => {
+  if (logarithmic === true) {
+    setDataX(Math.log10('Electric Field'));
+  }
+  if (logarithmic === false) {
+    setDataX('Electric Field');
+  }
+}, [logarithmic])
 
 useEffect(() => {
     const fetchJSONData = async () => {
@@ -87,6 +116,7 @@ useEffect(() => {
         }));
         setData(combinedData);
         console.log('Veri çekme başarılı:', combinedData);
+
       } catch (error) {
         console.error('Veri çekme hatası:', error);
         alert('Data is not exist. Please try again.');
@@ -113,6 +143,7 @@ useEffect(() => {
         <div>
         <FormControl>
               <FormControlLabel control={<Switch checked={checked} onChange={(e) => setChecked(e.target.checked)} />} label="Reduced Electric Field" />
+              <FormControlLabel control={<Switch checked={logarithmic} onChange={(e) => setLogarithmic(e.target.checked)} />} label="Logarithmic Scale" />
         </FormControl>
         </div>
         <div>
@@ -141,10 +172,12 @@ useEffect(() => {
         defaultValue={80}
         min={80}
         max={100}
-        step={null}
+        step={0.5}
         valueLabelDisplay="auto"
-        onChange={handleChange3}
-      />
+        value={changingValueFirstGas}
+        onChange={handleSliderChange}
+        onMouseUp={handleMouseUp}
+        />
         </Box>
         </div>
         <div>
@@ -170,22 +203,26 @@ useEffect(() => {
         defaultValue={0}
         min={0}
         max={20}
-        step={null}
+        step={0.5}
         valueLabelDisplay="auto"
-        onChange={handleChange4}
-      />
-    </Box>
+        value={changingValueSecondGas}
+        onChange={handleSliderChange2}
+        onMouseUp={handleMouseUp2}
+        />
+    </Box> 
     </div>
     </div>
       <div className="chart">
-        Gas: {firstGas} - {secondGas} <br />
-        X and Y Axis:  {selectedOption?.value} and { Xname?.value} <br />
+        <div className="header">
+          <h2 className="title">Gas: {firstGas} {gasValue1} - {secondGas} {gasValue2} <br /></h2>
+          <h2 className='title2'> X and Y Axis:  {selectedOption?.value} and { Xname?.value} <br /></h2>
+        </div>
         <ResponsiveContainer width="100%" height={400} >
-        <LineChart width={1000} height={700} data={data} margin={{ top: 20, right: 20, left: 20, bottom: 20 }}>
+        <LineChart width={1000} height={700} data={data} margin={{ top: 0, right: 20, left: 10, bottom: 20 }}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey={dataX} label={{ value: Xname?.value, position: 'insideBottom', offset: -15 }} />
         <YAxis label={{ value: Yname?.value, angle: -90, position: 'insideLeft', offset: 8 , dy: 100 }} />
-        <Line type="monotone" dataKey={selectedOption?.value} stroke="#8884d8" />
+        <Line  dot={false} activeDot={{ stroke: 'blue', strokeWidth: 2, r: 5 }} type="monotone" dataKey={selectedOption?.value} stroke="#8884d8" />
         <Tooltip />
         </LineChart>
         </ResponsiveContainer>
