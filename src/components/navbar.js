@@ -11,7 +11,7 @@ function Navbar() {
     <>
       <nav className="navbar">
         <div className="navbar-container">
-            <Link to="/" className="navbar-logo">
+            <Link to="/website" className="navbar-logo">
                 Gas Graphs <i className="fa-solid fa-chart-line fa-lg"></i>
             </Link>
             <div className="menu-icon" onClick={handeClick}>
@@ -19,7 +19,7 @@ function Navbar() {
             </div>
             <ul className={click ? 'nav-menu active' : 'nav-menu'}>
                 <li className="nav-item">
-                    <Link to="/" className="nav-links" onClick={closeMobileMenu}>
+                    <Link to="/website" className="nav-links" onClick={closeMobileMenu}>
                         Home
                     </Link>
                 </li>
