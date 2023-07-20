@@ -1,21 +1,61 @@
-.chart-options {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
 
-}
-.chart-options > div {
-    display: flex;
-    margin: 0 20px;
-    padding: 0 20px;
-    border-right: 1px solid #ccc;
-    border-left: 1px solid #ccc;
-}
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-left: 50px;
-    margin-right: 20px;
-}
+.chart-container {
+    margin-top: 10px;
+    max-width: 100%;
+    overflow-x: auto;
+    border: 1px solid #ccc;
+  }
+  
+
+  .chart {
+    width: 100%;
+    font-size: 14px;
+  }
+  
+
+  .chart .recharts-cartesian-axis-tick {
+    font-size: 14px;
+  }
+  
+
+  .chart .recharts-cartesian-grid-line {
+    stroke: #ccc;
+  }
+  
+
+  .chart .recharts-cartesian-line {
+    stroke: #8884d8;
+  }
+  
+  .chart .recharts-cartesian-line-dot {
+    fill: #8884d8;
+    stroke: #fff;
+  }
+  
+
+  .chart .recharts-tooltip-wrapper {
+    font-size: 14px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    padding: 8px;
+  }
+  
+  .chart .recharts-dot-active {
+    fill: blue;
+    stroke: #fff;
+    stroke-width: 2;
+    r: 5;
+  }
+  
+  @media (max-width: 768px) {
+    .chart .recharts-cartesian-axis-tick {
+      font-size: 12px;
+    }
+    
+    .chart .recharts-tooltip-wrapper {
+      font-size: 12px;
+      padding: 6px;
+    }
+  }
+  

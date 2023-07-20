@@ -3,15 +3,20 @@ import React, { useEffect } from 'react';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
 import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
-import Typography from '@mui/material/Typography';
+import InputLabel from '@mui/material/InputLabel';
 import Slider from '@mui/material/Slider';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import '../style/Dashboard.css';
+
 
 const Dashboard = ({
   selectedOption,
@@ -102,96 +107,102 @@ const Dashboard = ({
     console.log('Değer değişti:', valueSecondGas);
   };
 
+  
   return (
-    <div className="chart-options">
-      <FormControl>
-        <FormLabel id="demo-radio-buttons-group-label">Graph Options</FormLabel>
-        <RadioGroup
-          aria-labelledby="demo-radio-buttons-group-label"
-          defaultValue={'Drift Velocity'}
-          name="radio-buttons-group"
-          onChange={(e) => setSelectedOption({ value: e.target.value })}
-        >
-          <FormControlLabel value={'Drift Velocity'} control={<Radio />} label="Drift Velocity" />
-          <FormControlLabel value={'Diffusion Coefficient'} control={<Radio />} label="Diffusion Coefficient" />
-          <FormControlLabel value={'Transversal Diffusion'} control={<Radio />} label="Transversal Diffusion" />
-        </RadioGroup>
-      </FormControl>
-      <div>
-        <FormControl>
-          <FormControlLabel control={<Switch checked={checked} onChange={(e) => setChecked(e.target.checked)} />} label="Reduced Electric Field" />
-          <FormControlLabel control={<Switch checked={logarithmic} onChange={(e) => setLogarithmic(e.target.checked)} />} label="Logarithmic Scale" />
-        </FormControl>
-      </div>
-      <div>
-        <Box sx={{ maxWidth: 120, minWidth: 120 }}>
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">First Gas</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              defaultValue="None"
-              value={firstGas}
-              label="First Gas"
-              onChange={handleFirstGasChange}
-            >
-              <MenuItem value={''}>None</MenuItem>
-              <MenuItem value={'Ar'}>Ar</MenuItem>
-              <MenuItem value={'He'}>He</MenuItem>
-              <MenuItem value={'Kr'}>Kr</MenuItem>
-              <MenuItem value={'Ne'}>Ne</MenuItem>
-              <MenuItem value={'Xe'}>Xe</MenuItem>
-            </Select>
-          </FormControl>
-          <Typography textAlign={'center'} fontSize={15} id="input-slider" gutterBottom>
-            First Gas Ratio
-          </Typography>
-          <Slider
-            aria-label="First Gas"
-            defaultValue={80}
-            min={80}
-            max={100}
-            step={0.5}
-            valueLabelDisplay="auto"
-            value={changingValueFirstGas}
-            onChange={handleFirstGasSliderChange}
-            onMouseUp={handleFirstGasMouseUp}
-          />
-        </Box>
-      </div>
-      <div>
-        <Box sx={{ maxWidth: 120, minWidth: 120 }}>
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Second Gas</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              defaultValue="None"
-              value={secondGas}
-              label="First Gas"
-              onChange={handleSecondGasChange}
-            >
-              <MenuItem value={''}>None</MenuItem>
-              <MenuItem value={'CH4'}>CH4</MenuItem>
-              <MenuItem value={'C4H10'}>C4H10</MenuItem>
-            </Select>
-          </FormControl>
-          <Typography textAlign={'center'} fontSize={14} id="input-slider" gutterBottom>
-            Second Gas Ratio
-          </Typography>
-          <Slider
-            aria-label="First Gas"
-            defaultValue={0}
-            min={0}
-            max={20}
-            step={0.5}
-            valueLabelDisplay="auto"
-            value={changingValueSecondGas}
-            onChange={handleSecondGasSliderChange}
-            onMouseUp={handleSecondGasMouseUp}
-          />
-        </Box>
-      </div>
+    <div>
+      <div className="table-container">
+        <Table className="table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Graph Options</TableCell>
+              <TableCell>Reduced Electric Field</TableCell>
+              <TableCell>Logarithmic Scale</TableCell>
+              <TableCell>First Gas</TableCell>
+              <TableCell>First Gas Ratio</TableCell>
+              <TableCell>Second Gas</TableCell>
+              <TableCell>Second Gas Ratio</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            <TableRow>
+              <TableCell>
+                <FormControl component="fieldset">
+                  <RadioGroup
+                    aria-label="graph-options"
+                    defaultValue="Drift Velocity"
+                    name="graph-options"
+                    onChange={(e) => setSelectedOption({ value: e.target.value })}
+                  >
+                    <FormControlLabel value="Drift Velocity" control={<Radio />} label="Drift Velocity" />
+                    <FormControlLabel value="Diffusion Coefficient" control={<Radio />} label="Diffusion Coefficient" />
+                    <FormControlLabel value="Transversal Diffusion" control={<Radio />} label="Transversal Diffusion" />
+                  </RadioGroup>
+                </FormControl>
+              </TableCell>
+              <TableCell>
+                <FormControlLabel control={<Switch checked={checked} onChange={(e) => setChecked(e.target.checked)} />} />
+              </TableCell>
+              <TableCell>
+                <FormControlLabel control={<Switch checked={logarithmic} onChange={(e) => setLogarithmic(e.target.checked)} />} />
+              </TableCell>
+              <TableCell>
+                <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">First Gas</InputLabel>
+                  <Select value={firstGas} onChange={handleFirstGasChange}label="First Gas"labelId="demo-simple-select-label"id="demo-simple-select"
+                    >
+                    <MenuItem value="">None</MenuItem>
+                    <MenuItem value="Ar">Ar</MenuItem>
+                    <MenuItem value="He">He</MenuItem>
+                    <MenuItem value="Kr">Kr</MenuItem>
+                    <MenuItem value="Ne">Ne</MenuItem>
+                    <MenuItem value="Xe">Xe</MenuItem>
+                  </Select>
+                </FormControl>
+              </TableCell>
+              <TableCell>
+                <Box sx={{ maxWidth: 120, minWidth: 120 }}>
+                  <Slider
+                    aria-label="First Gas"
+                    defaultValue={80}
+                    min={80}
+                    max={100}
+                    step={0.5}
+                    valueLabelDisplay="auto"
+                    value={changingValueFirstGas}
+                    onChange={handleFirstGasSliderChange}
+                    onMouseUp={handleFirstGasMouseUp}
+                  />
+                </Box>
+              </TableCell>
+              <TableCell>
+                <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Second Gas</InputLabel>
+                  <Select value={secondGas} onChange={handleSecondGasChange} label="Second Gas" labelId="demo-simple-select-label" id="demo-simple-select">
+                    <MenuItem value="">None</MenuItem>
+                    <MenuItem value="CH4">CH4</MenuItem>
+                    <MenuItem value="C4H10">C4H10</MenuItem>
+                  </Select>
+                </FormControl>
+              </TableCell>
+              <TableCell>
+                <Box sx={{ maxWidth: 120, minWidth: 120 }}>
+                  <Slider
+                    aria-label="Second Gas"
+                    defaultValue={0}
+                    min={0}
+                    max={20}
+                    step={0.5}
+                    valueLabelDisplay="auto"
+                    value={changingValueSecondGas}
+                    onChange={handleSecondGasSliderChange}
+                    onMouseUp={handleSecondGasMouseUp}
+                  />
+                </Box>
+              </TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+        </div>
     </div>
   );
 };
