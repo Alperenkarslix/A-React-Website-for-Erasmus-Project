@@ -3,11 +3,6 @@ import React, { useState } from 'react';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import Dashboard from './Dashboard';
 import API from '../api/api';
-import Table from  '@mui/material/Table';
-import TableBody from  '@mui/material/TableBody';
-import TableCell from  '@mui/material/TableCell';
-import TableHead from  '@mui/material/TableHead';
-import TableRow from  '@mui/material/TableRow';
 import '../style/Chart.css';
 
 
@@ -68,25 +63,21 @@ const Chart = () => {
         valueSecondGas={valueSecondGas}
         setData={setData}
       />
-      <Table aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell><h2 className="title">Gas: {firstGas} {valueFirstGas} - {secondGas} {valueSecondGas}</h2></TableCell>
-            <TableCell align="right"><h2 className="title2">X and Y Axis: {selectedOption?.value} and {Xname?.value}</h2></TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
+      <div className="chart">
+      <div className="chart-title">
+        <h2 className="title">Gas: {firstGas} {valueFirstGas} - {secondGas} {valueSecondGas}</h2>
+        <h2 className="title2">X and Y Axis: {selectedOption?.value} and {Xname?.value}</h2>
+      </div>
         <ResponsiveContainer width="100%" height={400}>
-          <LineChart width={1000} height={700} data={data} margin={{ top: 0, right: 20, left: 10, bottom: 20 }}>
+          <LineChart margin={{ top: 0, right: 50, left: 50, bottom: 50 }}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey= {dataX} type="number" tickCount={6} domain={[0,1000]} allowDataOverflow={true} label={{ value: Xname?.value, position: 'insideBottom', offset: -15 }} />
             <YAxis label={{ value: Yname?.value, angle: -90, position: 'insideLeft', offset: 8, dy: 100 }} />
-            <Line dot={false} activeDot={{ stroke: 'blue', strokeWidth: 2, r: 5 }} type="monotone" dataKey={selectedOption?.value} stroke="#8884d8" />
+            <Line data={data} dot={false} activeDot={{ stroke: 'blue', strokeWidth: 2, r: 5 }} type="monotone" dataKey={selectedOption?.value} stroke="#8884d8" />
             <Tooltip />
           </LineChart>
         </ResponsiveContainer>
-        </TableBody>
-      </Table>
+      </div>
     </div>
   );
 };

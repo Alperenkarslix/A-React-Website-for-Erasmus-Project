@@ -60,21 +60,14 @@ const Dashboard = ({
       setDataX('Electric Field' / 'Pressure');
       setXname({ value: 'Electric Field / Pressure [V/cm/bar]', label: 'Electric Field / Pressure [V/cm/bar]' });
     }
-    if (checked === false) {
+    else  if (logarithmic === true) {
+      setDataX(Math.log10('Electric Field'));
+    }
+   else  {
       setDataX('Electric Field');
       setXname({ value: 'Electric Field [V/cm]', label: 'Electric Field [V/cm]' });
     }
-  }, [checked , setDataX, setXname]);
-  
-  useEffect(() => {
-    if (logarithmic === true) {
-      setDataX(Math.log10('Electric Field'));
-    }
-    if (logarithmic === false) {
-      setDataX('Electric Field');
-    }
-  }, [logarithmic , setDataX]);
-
+  }, [checked, logarithmic, setDataX, setXname]);
   const handleFirstGasChange = (event) => {
     setFirstGas(event.target.value);
   };
