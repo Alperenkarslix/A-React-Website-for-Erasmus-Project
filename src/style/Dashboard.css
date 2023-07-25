@@ -1,54 +1,66 @@
-.table-container {
-    margin-top: 10px;
-    max-width: 100%;
-    overflow-x: auto;
-    border: 1px solid #ccc;
-  }
-  
-  .table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 14px;
-  }
-  
-  .table th,
-  .table td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ccc;
-  }
-  
-  .table thead th {
-    background-color: #f2f2f2;
-    font-weight: bold;
-  }
-  
-  .table tbody tr td:first-child {
-    font-weight: bold;
-  }
-  
-  .table tbody tr td .MuiSlider-root {
-    margin: 0 auto;
-    width: 80%;
-  }
-  
-  .table tbody tr td .MuiSelect-root {
-    width: 100%;
-  }
-  
-  .MuiFormControlLabel-root {
-    margin-left: 0;
-    margin-right: 0;
-  }
-  
-  .MuiTypography-root {
-    font-size: 14px;
-  }
-  
-  @media (max-width: 768px) {
-    .table th,
-    .table td {
-      padding: 8px;
-    }
-  }
-  
+.dashboard-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.first-table-container {
+  max-width: 50%;
+  overflow-x: auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  margin-right: 20px;
+}
+
+/* Düzeltmeler burada başlıyor */
+.second-table-container {
+  width: 45%; /* Yeni tabloların yatayda uzamaması için width değeri ayarlanıyor */
+  max-width: 50%;
+  overflow-x: auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  display: inline-block; /* Yeni tabloların yan yana gelmesi için display inline-block yapılıyor */
+  margin: 10px; /* Her div arasında boşluk bırakmak için margin değeri ekleniyor */
+}
+/* Düzeltmeler burada bitiyor */
+
+.table-first {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  border: 10px solid #ccc;
+  border-radius: 5px;
+}
+
+.table-second {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.btn-add {
+  color: #4caf50;
+  border-radius: 5px;
+  border: #4caf50 1px solid;
+  font-size: 20px;
+  margin-right: 10px;
+  position: flex;
+  justify-content: center;
+}
+
+.btn-delete {
+  color: #f44336;
+  border-radius: 5px;
+  border: #f44336 1px solid;
+  font-size: 20px;
+}
