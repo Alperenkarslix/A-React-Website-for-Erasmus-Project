@@ -1,7 +1,8 @@
-import { useEffect } from 'react';
-import axios from 'axios';
+import { useEffect, useState } from 'react';import axios from 'axios';
+import Alert from '@mui/material/Alert';
 
-const API = ({ dashboards, setData, setDataX }) => {
+const API = ({ dashboards, setData }) => {
+  const [error, setError] = useState(null);
   useEffect(() => {
     const fetchJSONData = async () => {
       try {
@@ -16,8 +17,9 @@ const API = ({ dashboards, setData, setDataX }) => {
             'Diffusion Coefficient': item.electron_longitudinal_diffusion,
             'Transversal Diffusion': item.electron_transversal_diffusion,
             'Pressure': item.pressure,
+            'Name': item.name,
           }));
-          
+          console.log('Names', formattedData[0]['Name'])
           combinedData.push(
             formattedData[0]['Drift Velocity'].map((electron_drift_velocity, index) => ({
               'Drift Velocity': Math.round(formattedData[0]['Drift Velocity'][index] * 100) / 100,
@@ -30,16 +32,24 @@ const API = ({ dashboards, setData, setDataX }) => {
 
         setData(combinedData);
         console.log('Veri çekme başarılı:', combinedData);
+        setError(null);
       } catch (error) {
+        setError('An error occurred while fetching data: "Data is not exist." ');
         console.error('Veri çekme hatası:', error);
-        alert('Data does not exist. Please try again.');
       }
     };
 
     fetchJSONData();
   }, [dashboards, setData]);
 
-  return null; // The API component doesn't render anything
+  return (
+    <div>
+      {error ? (
+        <Alert severity="error">{error}</Alert>
+      ) : (
+        ''
+      )}
+    </div>
+  );
 };
-
 export default API;
