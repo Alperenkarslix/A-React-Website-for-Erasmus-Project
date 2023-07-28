@@ -27,8 +27,6 @@ const Dashboard = ({
   setData,
 
 }) => {
-  const [tempvaluefirstslider, setTempvaluefirstslider] = useState(80.0);
-  const [tempvaluesecondslider, setTempvaluesecondslider] = useState(20.0);
   const [dashboards, setDashboards] = useState([
     {
       id: 1,
@@ -177,6 +175,7 @@ const Dashboard = ({
                   <TableCell>Second Gas</TableCell>
                   <TableCell>Second Gas Ratio</TableCell>
                   <TableCell>Actions</TableCell>
+                  <TableCell>Gas Mixture</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -204,7 +203,7 @@ const Dashboard = ({
                     <Box sx={{ maxWidth: 120, minWidth: 120 }}>
                       <Slider
                         aria-label="First Gas"
-                        defaultValue={tempvaluefirstslider}
+                        defaultValue={parseFloat(dashboard.valueFirstGas)} 
                         min={80}
                         max={100}
                         step={0.5}
@@ -234,7 +233,7 @@ const Dashboard = ({
                     <Box sx={{ maxWidth: 120, minWidth: 120 }}>
                       <Slider
                         aria-label="Second Gas"
-                        defaultValue={tempvaluesecondslider}
+                        defaultValue={parseFloat(dashboard.valueSecondGas)}
                         min={0}
                         max={20}
                         step={0.5}
@@ -254,13 +253,17 @@ const Dashboard = ({
                       </button>
                     )}
                   </TableCell>
+                  <TableCell>
+                  <h2>{dashboard.firstGas + '-' + dashboard.secondGas}</h2>
+                  </TableCell>
                 </TableRow>
               </TableBody>
             </Table>
           </div>
         ))}
       </div>
-      <API dashboards={dashboards} setData={setData} /> 
+      <API dashboards={dashboards} setData={setData} 
+      /> 
           </div>
   );
 };

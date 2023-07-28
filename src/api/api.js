@@ -3,6 +3,7 @@ import Alert from '@mui/material/Alert';
 
 const API = ({ dashboards, setData }) => {
   const [error, setError] = useState(null);
+  const [names, setNames] = useState(null);
   useEffect(() => {
     const fetchJSONData = async () => {
       try {
@@ -19,7 +20,7 @@ const API = ({ dashboards, setData }) => {
             'Pressure': item.pressure,
             'Name': item.name,
           }));
-          console.log('Names', formattedData[0]['Name'])
+          setNames(formattedData[0]['Name'])
           combinedData.push(
             formattedData[0]['Drift Velocity'].map((electron_drift_velocity, index) => ({
               'Drift Velocity': Math.round(formattedData[0]['Drift Velocity'][index] * 100) / 100,
@@ -40,7 +41,7 @@ const API = ({ dashboards, setData }) => {
     };
 
     fetchJSONData();
-  }, [dashboards, setData]);
+  }, [dashboards, setData, names]);
 
   return (
     <div>

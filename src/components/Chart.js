@@ -48,12 +48,18 @@ const Chart = () => {
         <ResponsiveContainer width="100%" height={400}>
           <LineChart margin={{ top: 30, right: 30, left: 30, bottom: 30 }}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey={selectedOption2?.value} domain={[0, 1000]} label={{ value: Xname?.value, position: 'insideBottom', offset: -15 }} />
+            <XAxis dataKey={selectedOption2?.value} type='number' domain={[0, 1000]} label={{ value: Xname?.value, position: 'insideBottom', offset: -15 }} />
             <YAxis label={{ value: Yname?.value, angle: -90, position: 'insideLeft', offset: 8, dy: 100 }} />
             {data.map((series, index) => (
-              <Line key={index} data={series} dot={false} activeDot={{ stroke: 'blue', strokeWidth: 2, r: 5 }} type="monotone" dataKey={selectedOption?.value} />
+              <Line key={index} data={series} dot={false} activeDot={{ stroke: 'blue', strokeWidth: 2, r: 5 }} type="monotone" dataKey={selectedOption?.value}  />
             ))}
-            <Tooltip />
+            <Tooltip 
+              formatter={(value) => [value, Yname?.value]}
+              separator='='
+              labelFormatter={(value) => [value, Xname?.value]}
+              position={{ x: 0, y: 0}}
+              
+            />
           </LineChart>
         </ResponsiveContainer>
       </div>
