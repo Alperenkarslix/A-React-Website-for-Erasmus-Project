@@ -25,6 +25,7 @@ const Dashboard = ({
   handleYnameChange,
   handleXnameChange,
   setData,
+  setXDataKey,
 
 }) => {
   const [dashboards, setDashboards] = useState([
@@ -103,15 +104,18 @@ const Dashboard = ({
     } else if (selectedOption?.value === 'Transversal Diffusion') {
       handleYnameChange({ value: 'Diffusion Coefficient [√cm]', label: 'Diffusion Coefficient [√cm]' });
     }
-
+  
     if (selectedOption2?.value === 'Electric Field') {
+      setXDataKey('Electric Field');
       handleXnameChange({ value: 'Electric Field', label: 'Electric Field' });
     } else if (selectedOption2?.value === 'Electric Field / Pressure') {
+      setXDataKey('Electric Field / Pressure');
       handleXnameChange({ value: 'Electric Field / Pressure', label: 'Electric Field / Pressure' });
     } else if (selectedOption2?.value === 'Logarithmic Electric Field') {
-      handleXnameChange({ value: "Logarithmic Electric Field", label: 'Logarithmic Electric Field' });
+      setXDataKey('Electric Field');
+      handleXnameChange({ value: 'Logarithmic Electric Field', label: 'Logarithmic Electric Field' });
     }
-  }, [selectedOption, selectedOption2, handleYnameChange, handleXnameChange]);
+  }, [selectedOption, selectedOption2, handleYnameChange, handleXnameChange, setXDataKey]);
 
   if (dashboards.length === 0) {
     handleAddDashboard();
@@ -262,7 +266,7 @@ const Dashboard = ({
           </div>
         ))}
       </div>
-      <API dashboards={dashboards} setData={setData} 
+      <API dashboards={dashboards} setData={setData} selectedOption2={selectedOption2}
       /> 
           </div>
   );

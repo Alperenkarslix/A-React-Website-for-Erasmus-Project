@@ -10,6 +10,7 @@ const Chart = () => {
   const [selectedOption2, setSelectedOption2] = useState({ value: 'Electric Field', label: 'Electric Field' });
   const [Yname, setYname] = useState({ value: '', label: '' });
   const [Xname, setXname] = useState({ value: '', label: '' });
+  const [xDataKey, setXDataKey] = useState('Electric Field');
   const [dashboards, setDashboards] = useState([
     {
       id: 1,
@@ -31,6 +32,18 @@ const Chart = () => {
   const handleXnameChange = (value) => {
     setXname(value);
   };
+
+  const CustomizedAxisTick = (props) => {
+    const { x, y, payload } = props;
+    return (
+      <g transform={`translate(${x},${y})`}>
+        <text x={0} y={0} dy={16} textAnchor="middle" fill="#666">
+          {payload.value.toFixed(0)}
+        </text>
+      </g>
+    );
+  };
+
   return (
     <div>
       <Dashboard
@@ -43,12 +56,21 @@ const Chart = () => {
         dashboards={dashboards}
         setDashboards={setDashboards}
         setData={setData}
+        setXDataKey={setXDataKey}
+        
       />
       <div className="chart">
         <ResponsiveContainer width="100%" height={400}>
           <LineChart margin={{ top: 30, right: 30, left: 30, bottom: 30 }}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey={selectedOption2?.value} type='number' domain={[0, 1000]} label={{ value: Xname?.value, position: 'insideBottom', offset: -15 }} />
+            <XAxis
+            dataKey={xDataKey}
+            type="number"
+            scale = {selectedOption2.value === 'Logarithmic Electric Field' ? 'log' : 'auto'}
+            domain={[1, 'auto']}
+            tick={<CustomizedAxisTick />}
+            label={{ value: Xname?.value, position: 'insideBottom', offset: -15 }}
+            />
             <YAxis label={{ value: Yname?.value, angle: -90, position: 'insideLeft', offset: 8, dy: 100 }} />
             {data.map((series, index) => (
               <Line key={index} data={series} dot={false} activeDot={{ stroke: 'blue', strokeWidth: 2, r: 5 }} type="monotone" dataKey={selectedOption?.value}  />

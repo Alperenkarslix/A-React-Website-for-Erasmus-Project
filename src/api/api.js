@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';import axios from 'axios';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import Alert from '@mui/material/Alert';
 
-const API = ({ dashboards, setData }) => {
+const API = ({ dashboards, setData, selectedOption2 }) => {
   const [error, setError] = useState(null);
-  const [names, setNames] = useState(null);
+
   useEffect(() => {
     const fetchJSONData = async () => {
       try {
@@ -18,30 +19,55 @@ const API = ({ dashboards, setData }) => {
             'Diffusion Coefficient': item.electron_longitudinal_diffusion,
             'Transversal Diffusion': item.electron_transversal_diffusion,
             'Pressure': item.pressure,
-            'Name': item.name,
           }));
-          setNames(formattedData[0]['Name'])
-          combinedData.push(
-            formattedData[0]['Drift Velocity'].map((electron_drift_velocity, index) => ({
-              'Drift Velocity': Math.round(formattedData[0]['Drift Velocity'][index] * 100) / 100,
-              'Electric Field': Math.round(formattedData[0]['Electric Field'][index] * 100) / 1000,
-              'Diffusion Coefficient': formattedData[0]['Diffusion Coefficient'][index],
-              'Transversal Diffusion': formattedData[0]['Transversal Diffusion'][index],
-            }))
-          );
-        }
+          const pressureValue = formattedData[0]['Pressure'];
+          const electricFieldValues = formattedData[0]['Electric Field'];
 
+          if (selectedOption2?.value === 'Logarithmic Electric Field') {
+            combinedData.push(
+              formattedData[0]['Drift Velocity'].map((electron_drift_velocity, index) => ({
+                'Drift Velocity': Math.round(electron_drift_velocity * 100) / 100,
+                'Electric Field': Math.round(formattedData[0]['Electric Field'][index] * 100) / 1000,
+                'Diffusion Coefficient': formattedData[0]['Diffusion Coefficient'][index],
+                'Transversal Diffusion': formattedData[0]['Transversal Diffusion'][index],
+              }))
+            );
+          }
+           else if (selectedOption2?.value === 'Electric Field') {
+            combinedData.push(
+              formattedData[0]['Drift Velocity'].map((electron_drift_velocity, index) => ({
+                'Drift Velocity': Math.round(electron_drift_velocity * 100) / 100,
+                'Electric Field': Math.round(formattedData[0]['Electric Field'][index] * 100) / 1000,
+                'Diffusion Coefficient': formattedData[0]['Diffusion Coefficient'][index],
+                'Transversal Diffusion': formattedData[0]['Transversal Diffusion'][index],
+              }))
+            );
+          } else if (selectedOption2?.value === 'Electric Field / Pressure') {            
+            if (!isNaN(pressureValue)) {
+              const electricFieldPressureData = electricFieldValues.map((electricField, index) => ({
+                'Electric Field': Math.round(formattedData[0]['Electric Field'][index] * 100) / 1000,
+                'Pressure': pressureValue,
+                'Electric Field / Pressure':Math.round(electricField / pressureValue ) / 10,
+                'Drift Velocity': Math.round(formattedData[0]['Drift Velocity'][index] * 100) / 100,
+                'Diffusion Coefficient': formattedData[0]['Diffusion Coefficient'][index],
+                'Transversal Diffusion': formattedData[0]['Transversal Diffusion'][index],
+              }));
+              combinedData.push(electricFieldPressureData);
+            }
+          }
+        }
+        
         setData(combinedData);
         console.log('Veri çekme başarılı:', combinedData);
         setError(null);
       } catch (error) {
-        setError('An error occurred while fetching data: "Data is not exist." ');
+        setError('An error occurred while fetching data: "Data does not exist."');
         console.error('Veri çekme hatası:', error);
       }
     };
 
     fetchJSONData();
-  }, [dashboards, setData, names]);
+  }, [dashboards, setData, selectedOption2]);
 
   return (
     <div>
@@ -53,4 +79,5 @@ const API = ({ dashboards, setData }) => {
     </div>
   );
 };
+
 export default API;

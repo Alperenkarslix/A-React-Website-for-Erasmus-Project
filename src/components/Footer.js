@@ -8,7 +8,7 @@ function Footer(){
 			<div className="footer-left">
 				<h3>Gas<span>Graphs</span></h3>
 				<p className="footer-links">
-					<a href="/website">Home</a>
+					<a href="/">Home</a>
 					<a href="/about"> About</a>
 					<a href="/Contact"> Contact</a>
 				</p>

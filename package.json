@@ -1,7 +1,7 @@
 {
   "name": "website",
   "version": "0.1.0",
-  "homepage": "https://alperenkarslix.github.io/website/",
+  "homepage": "https://alperenkarslix.github.io/",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.1",

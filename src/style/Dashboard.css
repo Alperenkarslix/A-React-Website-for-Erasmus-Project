@@ -18,19 +18,17 @@
   margin-right: 20px;
 }
 
-/* Düzeltmeler burada başlıyor */
 .second-table-container {
-  width: 45%; /* Yeni tabloların yatayda uzamaması için width değeri ayarlanıyor */
+  width: 45%; 
   max-width: 50%;
   overflow-x: auto;
   border: 1px solid #ccc;
   border-radius: 5px;
   justify-content: center;
   align-items: center;
-  display: inline-block; /* Yeni tabloların yan yana gelmesi için display inline-block yapılıyor */
-  margin: 10px; /* Her div arasında boşluk bırakmak için margin değeri ekleniyor */
+  display: inline-block;
+  margin: 10px;
 }
-/* Düzeltmeler burada bitiyor */
 
 .table-first {
   width: 100%;
