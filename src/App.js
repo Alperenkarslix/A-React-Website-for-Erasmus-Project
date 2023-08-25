@@ -8,7 +8,7 @@ function App() {
 
     <div>
       <div>
-      <Router basename='/website'>
+      <Router basename='/gas-graphs'>
         <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />

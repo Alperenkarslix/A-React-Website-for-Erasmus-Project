@@ -1,6 +1,6 @@
 {
-  "homepage" : "https://alperenkarslix.github.io/website",
-  "name": "website",
+  "homepage" : "https://alperenkarslix.github.io/gas-graphs",
+  "name": "gas-graphs",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
